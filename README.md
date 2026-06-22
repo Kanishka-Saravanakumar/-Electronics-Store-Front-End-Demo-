@@ -2,8 +2,6 @@
 
 A single-file, no-framework front-end demo of an e-commerce storefront for electronics and home appliances. Built as a prototype to practice UI/UX, vanilla JS state handling, and responsive layout.
 
-🔗 **Live demo:** https://file:///C:/Users/kanishka/Downloads/electi.html#product-3
-
 ## Features
 
 - 🛒 **Cart** — add/remove items, live quantity + total, slide-out drawer
