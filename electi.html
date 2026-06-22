@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Electi - Electronics Store</title>
 <style>
-  /* color palette - tweaked these a bunch before landing here */
   :root{
     --pink: #ef4b6b;
     --pink-dark: #d63a59;
@@ -25,7 +24,7 @@
 
   /* ===== top bar ===== */
   .topbar { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
-  .logo { font-size: 26px; font-weight: 800; color: var(--pink); display: flex; align-items: center; gap: 6px; }
+  .logo { font-size: 26px; font-weight: 800; color: var(--pink); display: flex; align-items: center; gap: 6px; cursor: pointer; }
 
   .search-wrap { display: flex; flex: 1; max-width: 500px; margin: 0 30px; border: 1px solid var(--border); border-radius: 30px; overflow: hidden; }
   .search-wrap select { border: none; background: #fafafa; padding: 0 14px; font-size: 13px; color: var(--gray); }
@@ -39,11 +38,12 @@
   /* ===== nav ===== */
   nav { background: var(--pink); position: sticky; top: 0; z-index: 100; }
   .navflex { display: flex; align-items: center; }
-  .browse-btn { background: var(--pink-dark); color: #fff; padding: 16px 24px; font-weight: 600; display: flex; align-items: center; gap: 8px; white-space: nowrap; position: relative; }
+  .browse-btn { background: var(--pink-dark); color: #fff; padding: 16px 24px; font-weight: 600; display: flex; align-items: center; gap: 8px; white-space: nowrap; position: relative; cursor: pointer; }
   .navlinks { display: flex; gap: 28px; padding: 16px 0; margin-left: 30px; flex: 1; }
   .navlinks li { position: relative; }
-  .navlinks a { color: #fff; font-weight: 500; font-size: 15px; }
+  .navlinks a { color: #fff; font-weight: 500; font-size: 15px; cursor: pointer; }
   .navlinks .has-dropdown:after { content: '▾'; margin-left: 4px; }
+  .navlinks a.active-nav { border-bottom: 2px solid #fff; padding-bottom: 2px; }
 
   .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 180px; box-shadow: 0 8px 20px rgba(0,0,0,.15); border-radius: 6px; padding: 8px 0; z-index: 50; }
   .dropdown li a { color: var(--dark); display: block; padding: 8px 18px; font-size: 14px; }
@@ -55,6 +55,10 @@
   .cat-panel li a { color: var(--dark); display: block; padding: 10px 20px; font-size: 14px; border-bottom: 1px solid var(--bg-light); }
   .cat-panel li a:hover { color: var(--pink); background: var(--bg-light); }
 
+  /* ===== all pages ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
   /* ===== hero ===== */
   .hero-section { background: var(--bg-light); padding: 40px 0 30px; }
   .hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; }
@@ -64,7 +68,7 @@
   .hero-text h1 { font-size: 42px; line-height: 1.15; margin: 10px 0 14px; font-weight: 800; }
   .hero-text p { color: var(--gray); margin-bottom: 20px; font-size: 14px; }
 
-  .btn-pink { background: var(--pink); color: #fff; padding: 12px 26px; border-radius: 30px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: .2s; }
+  .btn-pink { background: var(--pink); color: #fff; padding: 12px 26px; border-radius: 30px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: .2s; cursor: pointer; }
   .btn-pink:hover { background: var(--pink-dark); }
 
   .hero-img { flex: 1; z-index: 2; }
@@ -76,9 +80,8 @@
   .side-card .info small { color: var(--pink); font-weight: 600; font-size: 11px; }
   .side-card .info h4 { font-size: 15px; margin: 4px 0 8px; }
   .side-card img { width: 70px; height: 70px; object-fit: contain; }
-  .mini-btn { background: var(--pink); color: #fff; font-size: 11px; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+  .mini-btn { background: var(--pink); color: #fff; font-size: 11px; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer; display: inline-block; }
 
-  /* feature strip under hero */
   .features { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; padding: 30px 0; border-top: 1px solid var(--border); margin-top: 20px; }
   .feature { display: flex; gap: 12px; align-items: flex-start; }
   .feature .ic { font-size: 26px; }
@@ -90,9 +93,8 @@
   .sec-title p { color: var(--gray); font-size: 14px; }
   .section { padding: 50px 0; }
 
-  /* category cards */
   .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .cat-box { display: flex; gap: 14px; border: 1px solid var(--border); border-radius: 10px; padding: 18px; transition: .2s; }
+  .cat-box { display: flex; gap: 14px; border: 1px solid var(--border); border-radius: 10px; padding: 18px; transition: .2s; cursor: pointer; }
   .cat-box:hover { box-shadow: 0 10px 24px rgba(0,0,0,.08); border-color: transparent; }
   .cat-box img { width: 48px; height: 48px; object-fit: contain; }
   .cat-box h4 { font-size: 15px; margin-bottom: 8px; }
@@ -100,7 +102,6 @@
   .cat-box ul li a:hover { color: var(--pink); }
   .center-btn { text-align: center; margin-top: 30px; }
 
-  /* product cards (used in a few sections) */
   .deal-box { border: 1px solid #ffd9e0; border-radius: 14px; padding: 30px; position: relative; }
   .deal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
   .deal-head h2 { font-size: 26px; font-weight: 800; }
@@ -121,7 +122,7 @@
   .price del { color: var(--gray); font-weight: 400; margin-left: 6px; font-size: 13px; }
   .add-cart-btn { margin-top: 10px; width: 100%; background: var(--bg-light); color: var(--dark); padding: 9px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: .2s; }
   .add-cart-btn:hover { background: var(--pink); color: #fff; }
-  .add-cart-btn.done { background: #2ecc71; color: #fff; } /* flips green for a sec after adding */
+  .add-cart-btn.done { background: #2ecc71; color: #fff; }
 
   .banner-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .banner { border-radius: 14px; padding: 40px; color: #fff; min-height: 220px; display: flex; flex-direction: column; justify-content: center; background-size: cover; background-position: center; position: relative; }
@@ -157,40 +158,72 @@
   .cta-strip::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.55); }
   .cta-strip > * { position: relative; z-index: 2; }
   .cta-strip h2 { font-size: 26px; max-width: 500px; }
-  .btn-blue { background: #3b6ef0; color: #fff; padding: 12px 26px; border-radius: 30px; font-weight: 600; margin-top: 18px; display: inline-block; }
+  .btn-blue { background: #3b6ef0; color: #fff; padding: 12px 26px; border-radius: 30px; font-weight: 600; margin-top: 18px; display: inline-block; cursor: pointer; }
 
-  footer { background: #171c26; color: #aab1c0; padding: 60px 0 20px; margin-top: 40px; }
-  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 30px; }
-  .foot-grid h4 { color: #fff; margin-bottom: 18px; font-size: 15px; }
-  .foot-grid ul li { margin-bottom: 10px; font-size: 13px; }
-  .foot-grid ul li a:hover { color: var(--pink); }
-  .foot-logo { color: var(--pink); font-size: 24px; font-weight: 800; margin-bottom: 14px; }
-  .foot-bottom { text-align: center; border-top: 1px solid #2b3240; margin-top: 40px; padding-top: 20px; font-size: 13px; }
+  /* ===== shop page ===== */
+  .shop-layout { display: grid; grid-template-columns: 240px 1fr; gap: 30px; padding: 40px 0; }
+  .shop-sidebar { position: sticky; top: 72px; align-self: start; }
+  .filter-group { margin-bottom: 28px; }
+  .filter-group h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .filter-group label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray); margin-bottom: 10px; cursor: pointer; }
+  .filter-group input[type=checkbox] { accent-color: var(--pink); width: 15px; height: 15px; }
+  .price-range { display: flex; gap: 8px; align-items: center; }
+  .price-range input { width: 80px; border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 13px; }
+  .shop-content h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .shop-meta { color: var(--gray); font-size: 13px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+  .sort-select { border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; outline: none; }
+  .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .filter-btn { background: var(--pink); color: #fff; width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; font-size: 14px; margin-top: 8px; }
+  .clear-btn { background: none; border: 1px solid var(--border); color: var(--gray); width: 100%; padding: 9px; border-radius: 8px; font-size: 13px; margin-top: 8px; }
 
-  /* little toast popup, bottom center */
-  #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--dark); color: #fff; padding: 14px 26px; border-radius: 30px; font-size: 14px; opacity: 0; pointer-events: none; transition: .3s; z-index: 999; display: flex; align-items: center; gap: 10px; }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  /* ===== about page ===== */
+  .about-hero { background: linear-gradient(135deg, #1d2530, #3a1a26); color: #fff; padding: 80px 0; text-align: center; }
+  .about-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+  .about-hero p { font-size: 18px; color: rgba(255,255,255,.75); max-width: 600px; margin: 0 auto; }
+  .about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding: 60px 0; text-align: center; }
+  .stat-box h3 { font-size: 42px; font-weight: 800; color: var(--pink); margin-bottom: 6px; }
+  .stat-box p { color: var(--gray); font-size: 14px; }
+  .about-story { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 60px 0; }
+  .about-story img { border-radius: 16px; width: 100%; height: 400px; object-fit: cover; }
+  .about-story h2 { font-size: 36px; font-weight: 800; margin-bottom: 18px; }
+  .about-story p { color: var(--gray); font-size: 15px; line-height: 1.8; margin-bottom: 16px; }
+  .about-values { background: var(--bg-light); padding: 60px 0; }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+  .value-card { background: #fff; border-radius: 14px; padding: 32px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,.06); }
+  .value-card .icon { font-size: 40px; margin-bottom: 16px; }
+  .value-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .value-card p { color: var(--gray); font-size: 14px; line-height: 1.7; }
+  .team-section { padding: 60px 0; }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+  .team-card { text-align: center; }
+  .team-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 14px; margin-bottom: 14px; }
+  .team-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .team-card p { color: var(--gray); font-size: 13px; }
 
-  /* slide-out cart drawer */
-  .cart-panel { position: fixed; top: 0; right: -380px; width: 360px; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,.15); z-index: 998; transition: .3s; display: flex; flex-direction: column; }
-  .cart-panel.open { right: 0; }
-  .cart-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .cart-items { flex: 1; overflow-y: auto; padding: 10px 20px; }
-  .cart-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: center; }
-  .cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
-  .cart-item .ci-info { flex: 1; }
-  .cart-item h5 { font-size: 13px; }
-  .cart-item .rm { color: var(--pink); font-size: 12px; cursor: pointer; }
-  .cart-foot { padding: 20px; border-top: 1px solid var(--border); }
-  .cart-foot .total { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 14px; }
-  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 997; display: none; }
-  .overlay.show { display: block; }
-  .empty-cart { text-align: center; color: var(--gray); padding: 40px 0; font-size: 14px; }
-
-  .burger { display: none; background: none; color: #fff; font-size: 22px; }
+  /* ===== contact page ===== */
+  .contact-page { padding: 60px 0; }
+  .contact-hero { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); color: #fff; padding: 60px 0; text-align: center; margin-bottom: 0; }
+  .contact-hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; }
+  .contact-hero p { font-size: 16px; opacity: .85; }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; padding: 60px 0; }
+  .contact-info h3 { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
+  .contact-item { display: flex; gap: 16px; margin-bottom: 28px; }
+  .contact-icon { width: 50px; height: 50px; background: var(--bg-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .contact-item h5 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .contact-item p { color: var(--gray); font-size: 13px; line-height: 1.6; }
+  .contact-form { background: var(--bg-light); border-radius: 16px; padding: 36px; }
+  .contact-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 14px; font-family: inherit; outline: none; background: #fff; transition: .2s; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--pink); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .map-wrap { border-radius: 14px; overflow: hidden; margin-top: 40px; }
+  .map-placeholder { background: var(--bg-light); height: 300px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; color: var(--gray); border-radius: 14px; border: 2px dashed var(--border); }
+  .map-placeholder span { font-size: 40px; }
 
   /* ===== product detail page ===== */
-  /* this whole page is just toggled with display:none/block — no real router, kept it simple */
   #productPage { display: none; padding: 40px 0 60px; }
   .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--gray); font-size: 14px; margin-bottom: 24px; cursor: pointer; }
   .back-link:hover { color: var(--pink); }
@@ -210,10 +243,37 @@
   .pd-meta { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--gray); }
   .pd-meta div { margin-bottom: 8px; }
   .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 16px; }
-  @media (max-width: 980px) {
-    .pd-layout { grid-template-columns: 1fr; }
-    .related-grid { grid-template-columns: 1fr 1fr; }
-  }
+
+  /* toast + cart + overlay */
+  #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--dark); color: #fff; padding: 14px 26px; border-radius: 30px; font-size: 14px; opacity: 0; pointer-events: none; transition: .3s; z-index: 999; display: flex; align-items: center; gap: 10px; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .cart-panel { position: fixed; top: 0; right: -380px; width: 360px; height: 100%; background: #fff; box-shadow: -10px 0 30px rgba(0,0,0,.15); z-index: 998; transition: .3s; display: flex; flex-direction: column; }
+  .cart-panel.open { right: 0; }
+  .cart-head { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 10px 20px; }
+  .cart-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: center; }
+  .cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; }
+  .cart-item .ci-info { flex: 1; }
+  .cart-item h5 { font-size: 13px; }
+  .cart-item .rm { color: var(--pink); font-size: 12px; cursor: pointer; }
+  .cart-foot { padding: 20px; border-top: 1px solid var(--border); }
+  .cart-foot .total { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 14px; }
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 997; display: none; }
+  .overlay.show { display: block; }
+  .empty-cart { text-align: center; color: var(--gray); padding: 40px 0; font-size: 14px; }
+  .burger { display: none; background: none; color: #fff; font-size: 22px; }
+
+  footer { background: #171c26; color: #aab1c0; padding: 60px 0 20px; margin-top: 40px; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 30px; }
+  .foot-grid h4 { color: #fff; margin-bottom: 18px; font-size: 15px; }
+  .foot-grid ul li { margin-bottom: 10px; font-size: 13px; }
+  .foot-grid ul li a:hover { color: var(--pink); }
+  .foot-logo { color: var(--pink); font-size: 24px; font-weight: 800; margin-bottom: 14px; }
+  .foot-bottom { text-align: center; border-top: 1px solid #2b3240; margin-top: 40px; padding-top: 20px; font-size: 13px; }
+
+  /* breadcrumb */
+  .breadcrumb { padding: 14px 0; font-size: 13px; color: var(--gray); border-bottom: 1px solid var(--border); margin-bottom: 0; }
+  .breadcrumb span { color: var(--pink); }
 
   @media (max-width: 980px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -233,6 +293,16 @@
     .browse-btn span.txt { display: none; }
     .burger { display: block; }
     .foot-grid { grid-template-columns: 1fr 1fr; }
+    .shop-layout { grid-template-columns: 1fr; }
+    .shop-sidebar { position: static; }
+    .about-story { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .pd-layout { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -241,7 +311,6 @@
 <div class="overlay" id="overlay"></div>
 <div id="toast"></div>
 
-<!-- cart drawer, hidden off-screen until opened -->
 <div class="cart-panel" id="cartPanel">
   <div class="cart-head">
     <h3>Your Cart</h3>
@@ -256,8 +325,7 @@
 
 <header>
   <div class="container topbar">
-    <div class="logo">🏷️ Electi</div>
-
+    <div class="logo" onclick="navigate('home')">🏷️ Electi</div>
     <div class="search-wrap">
       <select>
         <option>All Categories</option>
@@ -268,7 +336,6 @@
       <input id="searchInput" type="text" placeholder="Search products here...">
       <button onclick="doSearch()">🔍</button>
     </div>
-
     <div class="icons">
       <span onclick="toggleWishPanel()">❤ <span id="wishCount">0</span></span>
       <span onclick="showToast('Compare list is empty for now')">⇄ Compare</span>
@@ -280,45 +347,38 @@
     <div class="container navflex">
       <div class="browse-btn" id="browseBtn" onclick="toggleCatPanel()">☰ <span class="txt">Browse All Categories</span>
         <ul class="cat-panel" id="catPanel">
-          <li><a href="#categories">Headphone &amp; Bluetooth</a></li>
-          <li><a href="#categories">Mobile &amp; Ipad</a></li>
-          <li><a href="#categories">Xbox Playstation</a></li>
-          <li><a href="#categories">Double Soundbox</a></li>
-          <li><a href="#categories">Washing Machines</a></li>
-          <li><a href="#categories">Coffee Machine</a></li>
-          <li><a href="#categories">New Refrigerator</a></li>
-          <li><a href="#categories">Iron Machine</a></li>
+          <li><a onclick="navigate('shop')">Headphone &amp; Bluetooth</a></li>
+          <li><a onclick="navigate('shop')">Mobile &amp; Ipad</a></li>
+          <li><a onclick="navigate('shop')">Xbox Playstation</a></li>
+          <li><a onclick="navigate('shop')">Double Soundbox</a></li>
+          <li><a onclick="navigate('shop')">Washing Machines</a></li>
+          <li><a onclick="navigate('shop')">Coffee Machine</a></li>
+          <li><a onclick="navigate('shop')">New Refrigerator</a></li>
+          <li><a onclick="navigate('shop')">Iron Machine</a></li>
         </ul>
       </div>
 
       <button class="burger" onclick="toggleMobileNav()">☰</button>
 
       <ul class="navlinks" id="navLinks">
-        <li><a href="#top">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li class="has-dropdown"><a href="#">Pages</a>
+        <li><a id="nav-home" class="active-nav" onclick="navigate('home')">Home</a></li>
+        <li><a id="nav-shop" onclick="navigate('shop')">Shop</a></li>
+        <li class="has-dropdown"><a>Pages</a>
           <ul class="dropdown">
-            <li><a href="#categories">Categories</a></li>
-            <li><a href="#deals">Deals</a></li>
-            <li><a href="#recent">Recent Products</a></li>
+            <li><a onclick="navigate('shop')">All Products</a></li>
+            <li><a onclick="navigate('home'); setTimeout(()=>scrollToSection('categories'),100)">Categories</a></li>
+            <li><a onclick="navigate('home'); setTimeout(()=>scrollToSection('deals'),100)">Deals</a></li>
           </ul>
         </li>
-        <li class="has-dropdown"><a href="#">Shop</a>
-          <ul class="dropdown">
-            <li><a href="#deals">Deal of the Week</a></li>
-            <li><a href="#accessories">Accessories</a></li>
-            <li><a href="#recent">All Products</a></li>
-          </ul>
-        </li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a id="nav-about" onclick="navigate('about')">About</a></li>
+        <li><a id="nav-contact" onclick="navigate('contact')">Contact</a></li>
       </ul>
     </div>
   </nav>
 </header>
 
-<!-- everything below is the "home page" — toggled as one block when a product page opens -->
-<div id="homePage">
+<!-- ========== HOME PAGE ========== -->
+<div id="page-home" class="page active">
 
 <section class="hero-section" id="top">
   <div class="container hero-grid">
@@ -327,58 +387,53 @@
         <div class="eyebrow">IPHONE SERIES</div>
         <h1>Iphone Max<br>Mini Pro</h1>
         <p>We collect latest iphone mobile series and apple gadget collection.</p>
-        <a href="#recent" class="btn-pink">Shop Now →</a>
+        <a onclick="navigate('shop')" class="btn-pink">Shop Now →</a>
       </div>
       <div class="hero-img">
         <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=70" alt="iPhone">
       </div>
     </div>
-
     <div class="side-cards">
       <div class="side-card">
         <div class="info"><small>DRONE OFFER</small><h4>Now Get 60% Off Drone</h4>
-          <a href="#recent" class="mini-btn">Shop Now</a></div>
+          <a onclick="navigate('shop')" class="mini-btn">Shop Now</a></div>
         <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=200&q=70" alt="Drone">
       </div>
       <div class="side-card">
         <div class="info"><small>NEW COMPUTER</small><h4>Best Gaming Computer</h4>
-          <a href="#accessories" class="mini-btn">Shop Now</a></div>
+          <a onclick="navigate('shop')" class="mini-btn">Shop Now</a></div>
         <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=200&q=70" alt="Gaming PC">
       </div>
       <div class="side-card">
         <div class="info"><small>GAMING XBOX</small><h4>Gaming Xbox Playstation</h4>
-          <a href="#recent" class="mini-btn">Shop Now</a></div>
+          <a onclick="navigate('shop')" class="mini-btn">Shop Now</a></div>
         <img src="https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=200&q=70" alt="Xbox controller">
       </div>
     </div>
   </div>
-
   <div class="container features">
-    <div class="feature"><div class="ic">🎧</div><div><h5>24/7 Hours Support</h5><p>We provide you 24/7 hours customer support.</p></div></div>
-    <div class="feature"><div class="ic">🚚</div><div><h5>Free Shipping Service</h5><p>You'll get free shipping for your order.</p></div></div>
-    <div class="feature"><div class="ic">🔒</div><div><h5>Secure Payment Method</h5><p>We provide secure payment method for customer.</p></div></div>
-    <div class="feature"><div class="ic">💰</div><div><h5>Money Return Policy</h5><p>We have money return system for customer.</p></div></div>
-    <div class="feature"><div class="ic">🛡️</div><div><h5>Security Privacy</h5><p>Your privacy and online security protected.</p></div></div>
+    <div class="feature"><div class="ic">🎧</div><div><h5>24/7 Hours Support</h5><p>We provide 24/7 customer support.</p></div></div>
+    <div class="feature"><div class="ic">🚚</div><div><h5>Free Shipping</h5><p>Free shipping on all orders.</p></div></div>
+    <div class="feature"><div class="ic">🔒</div><div><h5>Secure Payment</h5><p>100% secure payment method.</p></div></div>
+    <div class="feature"><div class="ic">💰</div><div><h5>Money Back Policy</h5><p>Easy returns within 30 days.</p></div></div>
+    <div class="feature"><div class="ic">🛡️</div><div><h5>Privacy Protected</h5><p>Your data is always safe with us.</p></div></div>
   </div>
 </section>
 
 <section class="section" id="categories">
   <div class="container">
-    <div class="sec-title">
-      <h2>Explore Top Categories</h2>
-      <p>Browse our most popular categories and find exactly what you need.</p>
-    </div>
+    <div class="sec-title"><h2>Explore Top Categories</h2><p>Browse our most popular categories.</p></div>
     <div class="cat-grid">
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=70"><div><h4>Headphone &amp; Bluetooth</h4><ul><li><a href="#recent">Gaming Headphone</a></li><li><a href="#recent">Brand New Airpod</a></li><li><a href="#recent">Wireless Bluetooth</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=100&q=70"><div><h4>Mobile &amp; Ipad</h4><ul><li><a href="#recent">Tabs Accessories</a></li><li><a href="#recent">Smart Phone</a></li><li><a href="#recent">Latest Ipad</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=100&q=70"><div><h4>Xbox Playstation</h4><ul><li><a href="#recent">Gaming Playstation</a></li><li><a href="#recent">Xbox Gaming Set</a></li><li><a href="#recent">VR Headset</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=100&q=70"><div><h4>Double Soundbox</h4><ul><li><a href="#recent">Music Soundbox</a></li><li><a href="#recent">Double Sound</a></li><li><a href="#recent">Mini Speaker</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=100&q=70"><div><h4>Washing Machines</h4><ul><li><a href="#recent">Mini Washing Machine</a></li><li><a href="#recent">Big Washing Machine</a></li><li><a href="#recent">Quality Brand</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=100&q=70"><div><h4>Coffee Machine</h4><ul><li><a href="#recent">Coffee Machine</a></li><li><a href="#recent">Tea Machine</a></li><li><a href="#recent">Mix Machine</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=100&q=70"><div><h4>New Refrigerator</h4><ul><li><a href="#recent">Home Refrigerator</a></li><li><a href="#recent">Double Family Size</a></li><li><a href="#recent">Portable Size</a></li></ul></div></div>
-      <div class="cat-box"><img src="https://images.unsplash.com/photo-1583916003824-fd3e0c1ddc88?w=100&q=70"><div><h4>Iron Machine</h4><ul><li><a href="#recent">Water Iron Machine</a></li><li><a href="#recent">Simple Machine</a></li><li><a href="#recent">Family Iron</a></li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=70"><div><h4>Headphone &amp; Bluetooth</h4><ul><li>Gaming Headphone</li><li>Brand New Airpod</li><li>Wireless Bluetooth</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=100&q=70"><div><h4>Mobile &amp; Ipad</h4><ul><li>Tabs Accessories</li><li>Smart Phone</li><li>Latest Ipad</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=100&q=70"><div><h4>Xbox Playstation</h4><ul><li>Gaming Playstation</li><li>Xbox Gaming Set</li><li>VR Headset</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=100&q=70"><div><h4>Double Soundbox</h4><ul><li>Music Soundbox</li><li>Double Sound</li><li>Mini Speaker</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=100&q=70"><div><h4>Washing Machines</h4><ul><li>Mini Washing Machine</li><li>Big Washing Machine</li><li>Quality Brand</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=100&q=70"><div><h4>Coffee Machine</h4><ul><li>Coffee Machine</li><li>Tea Machine</li><li>Mix Machine</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=100&q=70"><div><h4>New Refrigerator</h4><ul><li>Home Refrigerator</li><li>Double Family Size</li><li>Portable Size</li></ul></div></div>
+      <div class="cat-box" onclick="navigate('shop')"><img src="https://images.unsplash.com/photo-1583916003824-fd3e0c1ddc88?w=100&q=70"><div><h4>Iron Machine</h4><ul><li>Water Iron Machine</li><li>Simple Machine</li><li>Family Iron</li></ul></div></div>
     </div>
-    <div class="center-btn"><a href="#recent" class="btn-pink">Explore More →</a></div>
+    <div class="center-btn"><a onclick="navigate('shop')" class="btn-pink">Explore All Products →</a></div>
   </div>
 </section>
 
@@ -387,7 +442,7 @@
     <div class="deal-box">
       <div class="deal-head">
         <h2>Deal Of The Week</h2>
-        <a href="#recent" class="btn-pink">View More →</a>
+        <a onclick="navigate('shop')" class="btn-pink">View More →</a>
       </div>
       <div class="prod-grid" id="dealGrid"></div>
     </div>
@@ -399,12 +454,12 @@
     <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=700&q=60')">
       <small>GET 50% DISCOUNT</small>
       <h3>Black Friday Offer<br>Now Available</h3>
-      <a href="#recent" class="btn-pink" style="width:fit-content;">Get Offer →</a>
+      <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;">Get Offer →</a>
     </div>
     <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700&q=60')">
       <small>GET 50% DISCOUNT</small>
       <h3>Dell Laptop Offer<br>Get Discount</h3>
-      <a href="#recent" class="btn-pink" style="width:fit-content;">Get Offer →</a>
+      <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;">Get Offer →</a>
     </div>
   </div>
 </section>
@@ -413,7 +468,7 @@
   <div class="container acc-layout">
     <div class="acc-promo">
       <div><small style="color:var(--pink-dark);font-weight:700;">GET 50% DISCOUNT</small><h3>For PC Accessories</h3></div>
-      <a href="#recent" class="btn-pink" style="width:fit-content;">Shop Now →</a>
+      <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;">Shop Now →</a>
     </div>
     <div>
       <div class="sec-title" style="text-align:left;margin-bottom:18px;"><h2 style="font-size:24px;">New Computer Accessories</h2></div>
@@ -437,23 +492,23 @@
       <div class="promo-stack">
         <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400&q=60')">
           <small>Get 40% Discount For Home Appearance</small>
-          <a href="#recent" class="btn-pink" style="width:fit-content;margin-top:10px;">Get Discount →</a>
+          <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;margin-top:10px;">Get Discount →</a>
         </div>
         <div class="promo-card" style="background-image:url('https://images.unsplash.com/photo-1547082299-de196ea013d6?w=400&q=60')">
           <small>Get 10% Discount For Apple Imac</small>
-          <a href="#recent" class="btn-pink" style="width:fit-content;margin-top:10px;">Get Discount →</a>
+          <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;margin-top:10px;">Get Discount →</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="about">
+<section class="section">
   <div class="container summer-layout">
     <div class="banner" style="background-image:url('https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&q=60');min-height:380px;">
       <small>UP TO 20% OFF</small>
       <h3>Virtual Gaming<br>VR Headset</h3>
-      <a href="#recent" class="btn-pink" style="width:fit-content;">Get Offer →</a>
+      <a onclick="navigate('shop')" class="btn-pink" style="width:fit-content;">Get Offer →</a>
     </div>
     <div>
       <div class="sec-title" style="text-align:left;"><h2 style="font-size:24px;">Hot Summer Offer</h2></div>
@@ -462,32 +517,261 @@
   </div>
 </section>
 
-<section class="section" id="blog">
+<section class="section">
   <div class="container">
     <div class="cta-strip">
-      <h2>Get Ready to Shopping With Us. Enjoy Weekly 50% Discount Offer</h2>
-      <a href="#recent" class="btn-blue">Start Shopping Now →</a>
+      <h2>Get Ready to Shop With Us. Enjoy Weekly 50% Discount Offers</h2>
+      <a onclick="navigate('shop')" class="btn-blue">Start Shopping Now →</a>
     </div>
   </div>
 </section>
 
-</div> <!-- /#homePage -->
+</div> <!-- /#page-home -->
 
-<!-- ===== product detail page ===== -->
+
+<!-- ========== SHOP PAGE ========== -->
+<div id="page-shop" class="page">
+  <div class="breadcrumb container">Home › <span>Shop</span></div>
+  <div class="container shop-layout">
+    <aside class="shop-sidebar">
+      <div class="filter-group">
+        <h4>Category</h4>
+        <label><input type="checkbox" checked> All Products</label>
+        <label><input type="checkbox"> Headphone</label>
+        <label><input type="checkbox"> Gaming</label>
+        <label><input type="checkbox"> PC Accessories</label>
+        <label><input type="checkbox"> Machines</label>
+        <label><input type="checkbox"> Home Appearance</label>
+        <label><input type="checkbox"> Apple Collection</label>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <div class="price-range">
+          <input type="number" placeholder="Min" value="0">
+          <span>–</span>
+          <input type="number" placeholder="Max" value="500">
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Rating</h4>
+        <label><input type="checkbox"> ★★★★★ (5 stars)</label>
+        <label><input type="checkbox"> ★★★★☆ (4+ stars)</label>
+        <label><input type="checkbox"> ★★★☆☆ (3+ stars)</label>
+      </div>
+      <div class="filter-group">
+        <h4>Availability</h4>
+        <label><input type="checkbox" checked> In Stock</label>
+        <label><input type="checkbox"> On Sale</label>
+        <label><input type="checkbox"> New Arrivals</label>
+      </div>
+      <button class="filter-btn" onclick="showToast('Filters applied!')">Apply Filters</button>
+      <button class="clear-btn" onclick="showToast('Filters cleared')">Clear All</button>
+    </aside>
+    <div class="shop-content">
+      <h2>All Products</h2>
+      <div class="shop-meta">
+        <span>Showing <strong id="shopCount">13</strong> products</span>
+        <select class="sort-select" onchange="sortShopGrid(this.value)">
+          <option value="default">Sort: Default</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="rating">Top Rated</option>
+        </select>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ABOUT PAGE ========== -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="container">
+      <h1>About Electi</h1>
+      <p>Your trusted destination for the latest electronics, gadgets, and home appliances — at prices that make sense.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="about-stats">
+      <div class="stat-box"><h3>50K+</h3><p>Happy Customers</p></div>
+      <div class="stat-box"><h3>1200+</h3><p>Products Listed</p></div>
+      <div class="stat-box"><h3>98%</h3><p>Satisfaction Rate</p></div>
+      <div class="stat-box"><h3>24/7</h3><p>Customer Support</p></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="about-story">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=70" alt="Our store">
+      <div>
+        <h2>We Started With a Simple Idea</h2>
+        <p>Electi was founded with one goal: make premium electronics accessible to everyone. We saw a market where great tech was either overpriced or hard to find — so we built a better place to shop.</p>
+        <p>Today, we serve thousands of customers across the country, offering a handpicked catalog of phones, laptops, gaming gear, and home appliances — all backed by genuine warranties and real support.</p>
+        <p>We're not just a store. We're a team of tech enthusiasts who genuinely care about helping you find the right product at the right price.</p>
+        <a onclick="navigate('shop')" class="btn-pink" style="margin-top:10px;">Browse Our Products →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-values">
+    <div class="container">
+      <div class="sec-title"><h2>What We Stand For</h2><p>The values that guide every decision we make.</p></div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="icon">🎯</div>
+          <h4>Honest Pricing</h4>
+          <p>No hidden fees, no misleading discounts. What you see is what you pay — always.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🔬</div>
+          <h4>Quality First</h4>
+          <p>Every product on our platform is verified. We don't list anything we wouldn't buy ourselves.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤝</div>
+          <h4>Real Support</h4>
+          <p>Our team is available 24/7. Real people, real answers — not just chatbots and ticket queues.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">♻️</div>
+          <h4>Sustainability</h4>
+          <p>We work with partners who share our commitment to reducing packaging waste and carbon footprint.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">⚡</div>
+          <h4>Fast Delivery</h4>
+          <p>Same-day dispatch on most items. We know you're excited — we ship fast.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🔄</div>
+          <h4>Easy Returns</h4>
+          <p>Changed your mind? No problem. 30-day no-questions-asked return policy on everything.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-section container">
+    <div class="sec-title"><h2>Meet Our Team</h2><p>The people behind Electi.</p></div>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=70" alt="Team member">
+        <h4>Arjun Mehta</h4>
+        <p>Founder & CEO</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=70" alt="Team member">
+        <h4>Priya Nair</h4>
+        <p>Head of Product</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=70" alt="Team member">
+        <h4>Rohan Sharma</h4>
+        <p>Lead Developer</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=70" alt="Team member">
+        <h4>Sneha Kapoor</h4>
+        <p>Customer Success</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip">
+        <h2>Ready to find your next favourite gadget?</h2>
+        <a onclick="navigate('shop')" class="btn-blue">Start Shopping →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== CONTACT PAGE ========== -->
+<div id="page-contact" class="page">
+  <div class="contact-hero">
+    <div class="container">
+      <h1>Get In Touch</h1>
+      <p>Have a question, feedback, or need help? We'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3>Contact Information</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><h5>Our Address</h5><p>123 Tech Street, Electronics District<br>Mumbai, Maharashtra 400001</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><h5>Phone</h5><p>+91 (012) 3456-789<br>Mon–Sat, 9AM–7PM</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div><h5>Email</h5><p>info@electi.com<br>support@electi.com</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div><h5>Working Hours</h5><p>Monday – Friday: 9AM – 7PM<br>Saturday: 10AM – 5PM</p></div>
+        </div>
+        <div class="map-placeholder">
+          <span>🗺️</span>
+          <p style="font-size:14px;">Map would be embedded here</p>
+          <p style="font-size:12px;">123 Tech Street, Mumbai</p>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Kanishka">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Singh">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select>
+            <option>General Enquiry</option>
+            <option>Order Support</option>
+            <option>Returns & Refunds</option>
+            <option>Partnership</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us how we can help..."></textarea>
+        </div>
+        <button class="btn-pink" style="width:100%;justify-content:center;" onclick="showToast('Message sent! We\'ll get back to you shortly.')">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PRODUCT DETAIL PAGE ========== -->
 <section id="productPage">
   <div class="container">
-    <div class="back-link" onclick="showHomePage()">← Back to products</div>
-
+    <div class="back-link" id="pdBackLink" onclick="goBackFromProduct()">← Back</div>
     <div class="pd-layout">
       <div class="pd-img-box"><img id="pdImg" src="" alt=""></div>
-
       <div class="pd-info">
         <div class="pd-cat" id="pdCat"></div>
         <h1 id="pdName"></h1>
         <div class="stars" id="pdStars" style="font-size:15px;"></div>
         <div class="pd-price" id="pdPrice"></div>
         <p class="pd-desc" id="pdDesc"></p>
-
         <div class="pd-actions">
           <div class="pd-qty">
             <button onclick="changePdQty(-1)">−</button>
@@ -497,14 +781,12 @@
           <button class="add-cart-btn" id="pdAddBtn" style="background:var(--pink);color:#fff;" onclick="addFromProductPage()">Add To Cart</button>
           <button class="wish-ic" id="pdWishBtn" style="position:static;" onclick="toggleWishFromPage()">❤</button>
         </div>
-
         <div class="pd-meta">
           <div>🚚 Free shipping on this item</div>
           <div>🔒 Secure checkout, money-back guarantee</div>
         </div>
       </div>
     </div>
-
     <div class="sec-title" style="text-align:left;margin-top:50px;margin-bottom:0;">
       <h2 style="font-size:22px;">You Might Also Like</h2>
     </div>
@@ -512,77 +794,117 @@
   </div>
 </section>
 
-<footer id="contact">
+<footer>
   <div class="container foot-grid">
     <div>
       <div class="foot-logo">🏷️ Electi</div>
       <p style="font-size:13px;line-height:1.7;">Your trusted destination for electronics, gadgets, and home appliances at the best prices.</p>
-      <p style="margin-top:14px;font-size:13px;">📍 Your Road No City<br>📞 (012) 3456-789<br>✉️ info@electi.com</p>
+      <p style="margin-top:14px;font-size:13px;">📍 123 Tech Street, Mumbai<br>📞 (012) 3456-789<br>✉️ info@electi.com</p>
     </div>
-    <div><h4>Quick Links</h4><ul><li><a href="#top">About Us</a></li><li><a href="#deals">Furniture</a></li><li><a href="#categories">Gallery</a></li><li><a href="#recent">Shop</a></li><li><a href="#blog">Blog</a></li></ul></div>
-    <div><h4>Privacy Policy</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms Condition</a></li><li><a href="#">Return Policy</a></li><li><a href="#">Faq</a></li></ul></div>
-    <div><h4>Top Collection</h4><ul><li><a href="#recent">Apple Airmac</a></li><li><a href="#recent">Macbook Air</a></li><li><a href="#recent">Vr Headset</a></li><li><a href="#recent">Smart Phone</a></li></ul></div>
+    <div><h4>Quick Links</h4><ul>
+      <li><a onclick="navigate('home')" style="cursor:pointer;">Home</a></li>
+      <li><a onclick="navigate('shop')" style="cursor:pointer;">Shop</a></li>
+      <li><a onclick="navigate('about')" style="cursor:pointer;">About Us</a></li>
+      <li><a onclick="navigate('contact')" style="cursor:pointer;">Contact</a></li>
+    </ul></div>
+    <div><h4>Privacy Policy</h4><ul>
+      <li><a href="#" onclick="showToast('Privacy Policy page coming soon')">Privacy Policy</a></li>
+      <li><a href="#" onclick="showToast('Terms coming soon')">Terms & Conditions</a></li>
+      <li><a href="#" onclick="showToast('Return Policy coming soon')">Return Policy</a></li>
+      <li><a href="#" onclick="showToast('FAQ coming soon')">FAQ</a></li>
+    </ul></div>
+    <div><h4>Top Collection</h4><ul>
+      <li><a onclick="navigate('shop')" style="cursor:pointer;">Apple Airmac</a></li>
+      <li><a onclick="navigate('shop')" style="cursor:pointer;">Macbook Air</a></li>
+      <li><a onclick="navigate('shop')" style="cursor:pointer;">VR Headset</a></li>
+      <li><a onclick="navigate('shop')" style="cursor:pointer;">Smart Phone</a></li>
+    </ul></div>
   </div>
   <div class="foot-bottom">© 2026 Electi. All rights reserved. — Internship demo project.</div>
 </footer>
 
 <script>
-/* =====================================================
-   Electi storefront — quick prototype, no backend.
-   Cart + wishlist just live in memory, refresh wipes them.
-   ===================================================== */
+/* === ROUTER === */
+var currentPage = 'home';
+var prevPage = 'home'; // to know where to go back from product detail
 
-// main catalog. ids just go up sequentially, didn't bother grouping by category
+function navigate(page) {
+  // hide all pages
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  // hide product page
+  document.getElementById('productPage').style.display = 'none';
+  // show target page
+  var el = document.getElementById('page-' + page);
+  if (el) { el.classList.add('active'); }
+  prevPage = currentPage;
+  currentPage = page;
+  // update nav highlights
+  document.querySelectorAll('.navlinks a').forEach(function(a){ a.classList.remove('active-nav'); });
+  var navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active-nav');
+  // render shop grid if needed
+  if (page === 'shop') renderShopGrid('default');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('navLinks').classList.remove('open');
+  history.pushState({ page: page }, '', '#' + page);
+}
+
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.pdId) {
+    showProductPage(e.state.pdId);
+  } else if (e.state && e.state.page) {
+    navigate(e.state.page);
+  } else {
+    navigate('home');
+  }
+});
+
+/* === PRODUCT DATA === */
 var products = [
-  { id: 1,  cat: 'Headphone',       name: 'New Gaming Headphone',   price: 125, old: 160, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=70' },
-  { id: 2,  cat: 'Gaming',          name: 'Xbox Gaming Playstation',price: 100, old: 160, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=300&q=70' },
-  { id: 3,  cat: 'Machines',        name: 'New Washing Machine',    price: 150, old: 180, rating: 4,                 img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=300&q=70' },
-  { id: 4,  cat: 'Machines',        name: 'Family Rice Cookers',    price: 125, old: 160, rating: 5, tag: '50% Off', img: 'https://images.unsplash.com/photo-1585442172658-3a8a6a6f54f3?w=300&q=70' },
-  { id: 5,  cat: 'PC Accessories',  name: 'Gaming Motherboard',     price: 225, old: 300, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=70' },
-  { id: 6,  cat: 'PC Accessories',  name: 'Computer Monitor',       price: 125, old: 150, rating: 4,                 img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' },
-  { id: 7,  cat: 'PC Accessories',  name: 'RGB Mouse Pad',          price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&q=70' },
-  { id: 8,  cat: 'Home Appearance', name: 'Home Refrigerator',      price: 225, old: 300, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=300&q=70' },
-  { id: 9,  cat: 'Home Appearance', name: 'Washing Machine',        price: 125, old: 150, rating: 4,                 img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=300&q=70' },
-  { id: 10, cat: 'Home Appearance', name: 'Iron Machine',           price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1583916003824-fd3e0c1ddc88?w=300&q=70' },
-  { id: 11, cat: 'Apple Collection',name: 'Apple Imac 500',         price: 300, old: 400, rating: 4,                 img: 'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=300&q=70' },
-  { id: 12, cat: 'Apple Collection',name: 'Macbook Air 400',        price: 100, old: 200, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&q=70' },
-  { id: 13, cat: 'Apple Collection',name: 'Imac 200',                price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' }
+  { id: 1,  cat: 'Headphone',       name: 'New Gaming Headphone',    price: 125, old: 160, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&q=70' },
+  { id: 2,  cat: 'Gaming',          name: 'Xbox Gaming Playstation', price: 100, old: 160, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=300&q=70' },
+  { id: 3,  cat: 'Machines',        name: 'New Washing Machine',     price: 150, old: 180, rating: 4,                 img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=300&q=70' },
+  { id: 4,  cat: 'Machines',        name: 'Family Rice Cooker',      price: 125, old: 160, rating: 5, tag: '50% Off', img: 'https://images.unsplash.com/photo-1585442172658-3a8a6a6f54f3?w=300&q=70' },
+  { id: 5,  cat: 'PC Accessories',  name: 'Gaming Motherboard',      price: 225, old: 300, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=70' },
+  { id: 6,  cat: 'PC Accessories',  name: 'Computer Monitor',        price: 125, old: 150, rating: 4,                 img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' },
+  { id: 7,  cat: 'PC Accessories',  name: 'RGB Mouse Pad',           price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&q=70' },
+  { id: 8,  cat: 'Home Appearance', name: 'Home Refrigerator',       price: 225, old: 300, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=300&q=70' },
+  { id: 9,  cat: 'Home Appearance', name: 'Washing Machine',         price: 125, old: 150, rating: 4,                 img: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=300&q=70' },
+  { id: 10, cat: 'Home Appearance', name: 'Iron Machine',            price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1583916003824-fd3e0c1ddc88?w=300&q=70' },
+  { id: 11, cat: 'Apple Collection',name: 'Apple iMac 500',          price: 300, old: 400, rating: 4,                 img: 'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=300&q=70' },
+  { id: 12, cat: 'Apple Collection',name: 'Macbook Air 400',         price: 100, old: 200, rating: 4, tag: 'New',     img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&q=70' },
+  { id: 13, cat: 'Apple Collection',name: 'iMac 200',                price: 225, old: 300, rating: 5, tag: 'Hot',     img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' }
 ];
 
-// small "accessories" subset shown in its own section — reuses ids in the 100s so they don't clash
 var accessoryProducts = [
-  { id: 101, name: 'Gaming Motherboard', price: 225, old: 300, tag: 'New', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=70' },
-  { id: 102, name: 'Computer Monitor',   price: 125, old: 150,              img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' },
-  { id: 103, name: 'RGB Mouse Pad',      price: 225, old: 300, tag: 'Hot', img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&q=70' }
+  { id: 101, cat: 'PC Accessories', name: 'Gaming Motherboard', price: 225, old: 300, tag: 'New', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=70' },
+  { id: 102, cat: 'PC Accessories', name: 'Computer Monitor',   price: 125, old: 150,              img: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300&q=70' },
+  { id: 103, cat: 'PC Accessories', name: 'RGB Mouse Pad',      price: 225, old: 300, tag: 'Hot', img: 'https://images.unsplash.com/photo-1527814050087-3793815479db?w=300&q=70' }
 ];
 
 var cart = [];
 var wishlist = [];
 
-// builds a star string like "★★★★☆" out of a 0-5 rating
 function buildStars(rating) {
   rating = rating || 4;
-  var filled = '★★★★★'.slice(0, rating);
-  var empty = '☆☆☆☆☆'.slice(0, 5 - rating);
-  return filled + empty;
+  return '★★★★★'.slice(0, rating) + '☆☆☆☆☆'.slice(0, 5 - rating);
 }
 
 function renderProductCard(item) {
   var isWished = wishlist.indexOf(item.id) !== -1;
-  var tagHtml = '';
-  if (item.tag) {
-    tagHtml = '<span class="prod-tag ' + (item.tag === 'Hot' ? 'hot' : '') + '">' + item.tag + '</span>';
-  }
+  var tagHtml = item.tag ? '<span class="prod-tag ' + (item.tag === 'Hot' ? 'hot' : '') + '">' + item.tag + '</span>' : '';
   var oldPriceHtml = item.old ? '<del>$' + item.old + '.00</del>' : '';
-
-  // the whole card is clickable to open the product page; the heart + add-to-cart
-  // buttons call stopPropagation so clicking them doesn't also trigger the navigation
   return (
     '<div class="prod-card" onclick="showProductPage(' + item.id + ')" style="cursor:pointer;">' +
       tagHtml +
       '<button class="wish-ic ' + (isWished ? 'active' : '') + '" onclick="event.stopPropagation(); toggleWish(' + item.id + ')">❤</button>' +
       '<div class="prod-img-wrap"><img src="' + item.img + '" alt="' + item.name + '"></div>' +
-      '<div class="prod-cat">' + item.cat + '</div>' +
+      '<div class="prod-cat">' + (item.cat || '') + '</div>' +
       '<h4>' + item.name + '</h4>' +
       '<div class="stars">' + buildStars(item.rating) + '</div>' +
       '<div class="price">$' + item.price + '.00 ' + oldPriceHtml + '</div>' +
@@ -591,16 +913,11 @@ function renderProductCard(item) {
   );
 }
 
-function getAllProducts() {
-  // accessories aren't really a separate catalog, just a curated slice — combine when we need to search/lookup
-  return products.concat(accessoryProducts);
-}
+function getAllProducts() { return products.concat(accessoryProducts); }
 
 function findProductById(id) {
   var all = getAllProducts();
-  for (var i = 0; i < all.length; i++) {
-    if (all[i].id === id) return all[i];
-  }
+  for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
   return null;
 }
 
@@ -611,306 +928,187 @@ function renderAll() {
 }
 
 function renderRecentTab(tab) {
-  var list = products.slice(); // copy so sorting doesn't mutate the original array
-
-  if (tab === 'popular') {
-    list.sort(function (a, b) { return b.rating - a.rating; });
-  } else if (tab === 'low') {
-    list.sort(function (a, b) { return a.price - b.price; });
-  }
-  // "featured" just keeps the original order
-
+  var list = products.slice();
+  if (tab === 'popular') list.sort(function(a,b){ return b.rating - a.rating; });
+  else if (tab === 'low') list.sort(function(a,b){ return a.price - b.price; });
   document.getElementById('recentGrid').innerHTML = list.slice(0, 6).map(renderProductCard).join('');
 }
 
-document.getElementById('tabBtns').addEventListener('click', function (e) {
+document.getElementById('tabBtns').addEventListener('click', function(e) {
   if (!e.target.classList.contains('tab-btn')) return;
-  document.querySelectorAll('.tab-btn').forEach(function (btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(btn){ btn.classList.remove('active'); });
   e.target.classList.add('active');
   renderRecentTab(e.target.dataset.tab);
 });
 
+/* === SHOP PAGE === */
+function renderShopGrid(sort) {
+  var list = products.slice();
+  if (sort === 'low') list.sort(function(a,b){ return a.price - b.price; });
+  else if (sort === 'high') list.sort(function(a,b){ return b.price - a.price; });
+  else if (sort === 'rating') list.sort(function(a,b){ return b.rating - a.rating; });
+  document.getElementById('shopGrid').innerHTML = list.map(renderProductCard).join('');
+  document.getElementById('shopCount').textContent = list.length;
+}
+
+function sortShopGrid(val) { renderShopGrid(val); }
+
+/* === CART === */
 function addToCart(id) {
   var product = findProductById(id);
-  if (!product) return; // shouldn't happen, but just in case
-
-  var existingLine = cart.find(function (line) { return line.id === id; });
-  if (existingLine) {
-    existingLine.qty += 1;
-  } else {
-    // spread the product fields into a new cart line + qty
-    cart.push(Object.assign({}, product, { qty: 1 }));
-  }
-
+  if (!product) return;
+  var existingLine = cart.find(function(line){ return line.id === id; });
+  if (existingLine) { existingLine.qty += 1; } 
+  else { cart.push(Object.assign({}, product, { qty: 1 })); }
   refreshCartUI();
-
-  // little visual confirmation on the button itself
   var btn = document.getElementById('btn-' + id);
   if (btn) {
-    btn.textContent = 'Added ✓';
-    btn.classList.add('done');
-    setTimeout(function () {
-      btn.textContent = 'Add To Cart';
-      btn.classList.remove('done');
-    }, 1200);
+    btn.textContent = 'Added ✓'; btn.classList.add('done');
+    setTimeout(function(){ btn.textContent = 'Add To Cart'; btn.classList.remove('done'); }, 1200);
   }
-
   showToast(product.name + ' added to cart');
 }
 
 function toggleWish(id) {
   var pos = wishlist.indexOf(id);
-  if (pos > -1) {
-    wishlist.splice(pos, 1);
-    showToast('Removed from wishlist');
-  } else {
-    wishlist.push(id);
-    showToast('Added to wishlist');
-  }
+  if (pos > -1) { wishlist.splice(pos, 1); showToast('Removed from wishlist'); }
+  else { wishlist.push(id); showToast('Added to wishlist'); }
   document.getElementById('wishCount').textContent = wishlist.length;
-  renderAll(); // brute force re-render so the heart icon updates everywhere — fine for this scale
+  renderAll();
+  if (currentPage === 'shop') renderShopGrid('default');
 }
 
 function refreshCartUI() {
-  var totalQty = cart.reduce(function (sum, line) { return sum + line.qty; }, 0);
+  var totalQty = cart.reduce(function(sum, line){ return sum + line.qty; }, 0);
   document.getElementById('cartBadge').textContent = totalQty;
-
   var itemsContainer = document.getElementById('cartItems');
-
   if (cart.length === 0) {
     itemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty.<br>Start adding some products!</div>';
   } else {
-    itemsContainer.innerHTML = cart.map(function (line) {
-      return (
-        '<div class="cart-item">' +
-          '<img src="' + line.img + '">' +
-          '<div class="ci-info">' +
-            '<h5>' + line.name + '</h5>' +
-            '<div style="font-size:12px;color:var(--gray)">$' + line.price + '.00 × ' + line.qty + '</div>' +
-          '</div>' +
-          '<span class="rm" onclick="removeFromCart(' + line.id + ')">Remove</span>' +
-        '</div>'
-      );
+    itemsContainer.innerHTML = cart.map(function(line){
+      return '<div class="cart-item"><img src="' + line.img + '"><div class="ci-info"><h5>' + line.name + '</h5><div style="font-size:12px;color:var(--gray)">$' + line.price + '.00 × ' + line.qty + '</div></div><span class="rm" onclick="removeFromCart(' + line.id + ')">Remove</span></div>';
     }).join('');
   }
-
-  var total = cart.reduce(function (sum, line) { return sum + (line.price * line.qty); }, 0);
+  var total = cart.reduce(function(sum, line){ return sum + (line.price * line.qty); }, 0);
   document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(function (line) { return line.id !== id; });
-  refreshCartUI();
-}
-
+function removeFromCart(id) { cart = cart.filter(function(line){ return line.id !== id; }); refreshCartUI(); }
 function toggleCart(open) {
   document.getElementById('cartPanel').classList.toggle('open', open);
   document.getElementById('overlay').classList.toggle('show', open);
 }
-document.getElementById('overlay').addEventListener('click', function () { toggleCart(false); });
+document.getElementById('overlay').addEventListener('click', function(){ toggleCart(false); });
 
 function checkout() {
-  if (cart.length === 0) {
-    showToast('Your cart is empty');
-    return;
-  }
-  // no real payment flow here, this is just a UI prototype
-  showToast('Checkout demo: order placed! (no real payment in this prototype)');
-  cart = [];
-  refreshCartUI();
-  toggleCart(false);
+  if (cart.length === 0) { showToast('Your cart is empty'); return; }
+  showToast('Order placed! (demo prototype — no real payment)');
+  cart = []; refreshCartUI(); toggleCart(false);
 }
 
-function toggleWishPanel() {
-  // TODO: build an actual wishlist drawer like the cart one. for now just a toast.
-  showToast(wishlist.length + ' item(s) in your wishlist');
-}
+function toggleWishPanel() { showToast(wishlist.length + ' item(s) in your wishlist'); }
 
+/* === TOAST === */
 var toastTimer = null;
 function showToast(message) {
   var toastEl = document.getElementById('toast');
-  toastEl.textContent = message;
-  toastEl.classList.add('show');
+  toastEl.textContent = message; toastEl.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+  toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2200);
 }
 
+/* === SEARCH === */
 function doSearch() {
   var query = document.getElementById('searchInput').value.trim().toLowerCase();
-  if (!query) {
-    showToast('Type something to search');
-    return;
-  }
-
-  var match = getAllProducts().find(function (p) {
-    return p.name.toLowerCase().indexOf(query) !== -1 || p.cat.toLowerCase().indexOf(query) !== -1;
-  });
-
-  if (match) {
-    showToast('Found: ' + match.name);
-    document.getElementById('recent').scrollIntoView({ behavior: 'smooth' });
-  } else {
-    showToast('No products found for "' + query + '"');
-  }
+  if (!query) { showToast('Type something to search'); return; }
+  var match = getAllProducts().find(function(p){ return p.name.toLowerCase().indexOf(query) !== -1 || (p.cat && p.cat.toLowerCase().indexOf(query) !== -1); });
+  if (match) { navigate('shop'); showToast('Showing results for "' + query + '"'); }
+  else { showToast('No products found for "' + query + '"'); }
 }
-document.getElementById('searchInput').addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') doSearch();
+document.getElementById('searchInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') doSearch(); });
+
+/* === CATEGORY PANEL === */
+function toggleCatPanel() { document.getElementById('catPanel').classList.toggle('show'); }
+document.addEventListener('click', function(e){
+  if (!document.getElementById('browseBtn').contains(e.target)) document.getElementById('catPanel').classList.remove('show');
 });
 
-function toggleCatPanel() {
-  document.getElementById('catPanel').classList.toggle('show');
-}
-document.addEventListener('click', function (e) {
-  // close the categories dropdown if you click anywhere outside the browse button
-  if (!document.getElementById('browseBtn').contains(e.target)) {
-    document.getElementById('catPanel').classList.remove('show');
-  }
-});
+/* === MOBILE NAV === */
+function toggleMobileNav() { document.getElementById('navLinks').classList.toggle('open'); }
 
-function toggleMobileNav() {
-  document.getElementById('navLinks').classList.toggle('open');
-}
-
-// smooth-scroll every in-page anchor, and collapse the mobile menu after a click
-document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-  link.addEventListener('click', function (e) {
-    var targetId = link.getAttribute('href');
-    var targetEl = document.querySelector(targetId);
-    if (!targetEl) return;
-    e.preventDefault();
-    targetEl.scrollIntoView({ behavior: 'smooth' });
-    document.getElementById('navLinks').classList.remove('open');
-  });
-});
-
-// "Hot Summer Offer" list — kept separate from the main catalog since these aren't purchasable products, just promo blurbs
+/* === HOT SUMMER OFFER === */
 var summerOfferItems = [
-  { name: 'Virtular Gaming VR Headsets', price: 150, old: 180, img: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=120&q=70' },
-  { name: 'Xbox Gaming Playstation',     price: 120, old: 180, img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=120&q=70' },
-  { name: 'Brand New Laptop Air Mac',    price: 150, old: 180, img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=120&q=70' },
-  { name: 'Hot Microoven Family',        price: 120, old: 160, img: 'https://images.unsplash.com/photo-1585442172658-3a8a6a6f54f3?w=120&q=70' }
+  { name: 'Virtual Gaming VR Headsets', price: 150, old: 180, img: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=120&q=70' },
+  { name: 'Xbox Gaming Playstation',    price: 120, old: 180, img: 'https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=120&q=70' },
+  { name: 'Macbook Air',               price: 150, old: 180, img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=120&q=70' },
+  { name: 'Home Microwave',            price: 120, old: 160, img: 'https://images.unsplash.com/photo-1585442172658-3a8a6a6f54f3?w=120&q=70' }
 ];
-
-document.getElementById('vrList').innerHTML = summerOfferItems.map(function (item) {
-  return (
-    '<div class="vr-item">' +
-      '<img src="' + item.img + '">' +
-      '<div>' +
-        '<h5>' + item.name + '</h5>' +
-        '<div class="stars">★★★★☆</div>' +
-        '<div class="price">$' + item.price + '.00 <del>$' + item.old + '.00</del></div>' +
-      '</div>' +
-    '</div>'
-  );
+document.getElementById('vrList').innerHTML = summerOfferItems.map(function(item){
+  return '<div class="vr-item"><img src="' + item.img + '"><div><h5>' + item.name + '</h5><div class="stars">★★★★☆</div><div class="price">$' + item.price + '.00 <del>$' + item.old + '.00</del></div></div></div>';
 }).join('');
 
-// =================== product detail page ===================
-// super lightweight "routing" — no framework, just show/hide two containers
-// and stash the current product id + chosen qty in a couple of variables.
+/* === PRODUCT DETAIL PAGE === */
 var currentPdId = null;
 var currentPdQty = 1;
 
 function showProductPage(id) {
   var product = findProductById(id);
   if (!product) return;
-
-  currentPdId = id;
-  currentPdQty = 1;
-
+  currentPdId = id; currentPdQty = 1;
   document.getElementById('pdImg').src = product.img;
   document.getElementById('pdImg').alt = product.name;
   document.getElementById('pdCat').textContent = product.cat || '';
   document.getElementById('pdName').textContent = product.name;
   document.getElementById('pdStars').textContent = buildStars(product.rating);
   document.getElementById('pdQty').textContent = currentPdQty;
-
   var oldPriceHtml = product.old ? '<del>$' + product.old + '.00</del>' : '';
   document.getElementById('pdPrice').innerHTML = '$' + product.price + '.00 ' + oldPriceHtml;
-
-  // we don't have real product descriptions in the data, so generate a generic
-  // but reasonable-sounding blurb instead of leaving it blank
-  document.getElementById('pdDesc').textContent =
-    'The ' + product.name + ' is part of our ' + (product.cat || 'featured') +
-    ' lineup — solid build quality, good everyday performance, and backed by our ' +
-    'standard warranty and return policy. ' +
-    (product.tag ? 'Currently tagged as ' + product.tag + '.' : '');
-
+  document.getElementById('pdDesc').textContent = 'The ' + product.name + ' is part of our ' + (product.cat || 'featured') + ' lineup — solid build quality, good everyday performance, and backed by our standard warranty and return policy.' + (product.tag ? ' Currently tagged as ' + product.tag + '.' : '');
   updatePdWishIcon();
-
-  // related items: same category, excluding itself, capped at 4
-  var related = getAllProducts()
-    .filter(function (p) { return p.id !== id && p.cat === product.cat; })
-    .slice(0, 4);
-
-  // not enough same-category items? pad with whatever else is around
+  var related = getAllProducts().filter(function(p){ return p.id !== id && p.cat === product.cat; }).slice(0, 4);
   if (related.length < 4) {
-    var filler = getAllProducts().filter(function (p) {
-      return p.id !== id && related.indexOf(p) === -1;
-    });
+    var filler = getAllProducts().filter(function(p){ return p.id !== id && related.indexOf(p) === -1; });
     related = related.concat(filler.slice(0, 4 - related.length));
   }
   document.getElementById('relatedGrid').innerHTML = related.map(renderProductCard).join('');
-
-  document.getElementById('homePage').style.display = 'none';
+  // hide all pages, show product page
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('productPage').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'instant' });
-
-  // push a hash so the browser back button feels natural too
   history.pushState({ pdId: id }, '', '#product-' + id);
 }
 
-function showHomePage() {
-  currentPdId = null;
+function goBackFromProduct() {
   document.getElementById('productPage').style.display = 'none';
-  document.getElementById('homePage').style.display = '';
+  var el = document.getElementById('page-' + prevPage);
+  if (el) { el.classList.add('active'); } else { document.getElementById('page-home').classList.add('active'); currentPage = 'home'; }
   window.scrollTo({ top: 0, behavior: 'instant' });
-  if (location.hash.indexOf('#product-') === 0) {
-    history.pushState({}, '', location.pathname + location.search);
-  }
+  history.pushState({ page: prevPage }, '', '#' + prevPage);
 }
 
-window.addEventListener('popstate', function (e) {
-  if (e.state && e.state.pdId) {
-    showProductPage(e.state.pdId);
-  } else {
-    showHomePage();
-  }
-});
-
-function changePdQty(delta) {
-  currentPdQty = Math.max(1, currentPdQty + delta);
-  document.getElementById('pdQty').textContent = currentPdQty;
-}
-
+function changePdQty(delta) { currentPdQty = Math.max(1, currentPdQty + delta); document.getElementById('pdQty').textContent = currentPdQty; }
 function addFromProductPage() {
   if (currentPdId == null) return;
   for (var i = 0; i < currentPdQty; i++) addToCart(currentPdId);
-
   var btn = document.getElementById('pdAddBtn');
   var original = btn.textContent;
   btn.textContent = 'Added ✓';
-  setTimeout(function () { btn.textContent = original; }, 1200);
+  setTimeout(function(){ btn.textContent = original; }, 1200);
 }
-
-function toggleWishFromPage() {
-  if (currentPdId == null) return;
-  toggleWish(currentPdId); // this calls renderAll(), which we patch below to also keep the detail page in sync
-  updatePdWishIcon();
-}
-
+function toggleWishFromPage() { if (currentPdId == null) return; toggleWish(currentPdId); updatePdWishIcon(); }
 function updatePdWishIcon() {
   var wishBtn = document.getElementById('pdWishBtn');
   if (!wishBtn || currentPdId == null) return;
   wishBtn.classList.toggle('active', wishlist.indexOf(currentPdId) !== -1);
 }
 
-// on load, if someone landed directly on a #product-123 link, jump straight to that page
-(function openProductPageFromHash() {
+// handle direct #product-N URLs on load
+(function(){
   var match = location.hash.match(/^#product-(\d+)$/);
   if (match) showProductPage(Number(match[1]));
 })();
 
-// kick everything off
+// init
 renderAll();
 refreshCartUI();
 </script>
